@@ -115,6 +115,10 @@
             border: 1px solid #e8f0fe;
         }
 
+        .filter-group {
+            position: relative;
+        }
+
         .filter-group label {
             display: block;
             font-weight: 600;
@@ -150,6 +154,36 @@
             background-repeat: no-repeat;
             background-position: right 12px center;
             padding-right: 36px;
+            cursor: pointer;
+        }
+
+        .filter-group select option {
+            padding: 8px;
+        }
+
+        .filter-group input {
+            padding-right: 36px;
+        }
+
+        .filter-group .clear-btn {
+            position: absolute;
+            right: 12px;
+            bottom: 12px;
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 16px;
+            display: none;
+            padding: 0 4px;
+        }
+
+        .filter-group .clear-btn:hover {
+            color: #ef4444;
+        }
+
+        .filter-group .clear-btn.visible {
+            display: block;
         }
 
         .btn-search {
@@ -165,6 +199,7 @@
             transition: all 0.2s;
             align-self: flex-end;
             height: 44px;
+            white-space: nowrap;
         }
 
         .btn-search:hover {
@@ -175,6 +210,17 @@
 
         .btn-search:active {
             transform: translateY(0);
+        }
+
+        .btn-search:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-search:disabled:hover {
+            background: #1a5fb4;
+            box-shadow: none;
         }
 
         .results-header {
@@ -264,39 +310,141 @@
             display: block;
         }
 
-        .notes {
+        .footer-note {
             margin-top: 24px;
             padding: 16px 20px;
             background: #f8faff;
             border-radius: 12px;
             border: 1px solid #e8f0fe;
-            font-size: 13px;
+            font-size: 14px;
             color: #475569;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
+            text-align: center;
+            font-weight: 500;
         }
 
-        .notes .note-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        /* ===== КАСТОМНЫЙ ВЫПАДАЮЩИЙ СПИСОК ===== */
+        .custom-select {
+            position: relative;
+            width: 100%;
         }
 
-        .notes .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            display: inline-block;
-            background: #1a5fb4;
+        .custom-select input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #d0e0f5;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: inherit;
+            background: #ffffff;
+            color: #0a2540;
+            transition: all 0.2s;
         }
 
-        .notes .dot.green {
-            background: #0a7a3a;
+        .custom-select input:focus {
+            outline: none;
+            border-color: #1a5fb4;
+            box-shadow: 0 0 0 3px rgba(26, 95, 180, 0.12);
         }
 
-        .notes .dot.purple {
-            background: #6d28d9;
+        .custom-select input::placeholder {
+            color: #94a3b8;
+        }
+
+        .custom-select .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border: 1.5px solid #d0e0f5;
+            border-radius: 10px;
+            margin-top: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .custom-select .dropdown.open {
+            display: block;
+        }
+
+        .custom-select .dropdown-item {
+            padding: 10px 14px;
+            cursor: pointer;
+            transition: background 0.15s;
+            font-size: 14px;
+            color: #1e293b;
+        }
+
+        .custom-select .dropdown-item:hover {
+            background: #f0f7ff;
+        }
+
+        .custom-select .dropdown-item.active {
+            background: #e8f0fe;
+            font-weight: 600;
+        }
+
+        .custom-select .dropdown-item.highlight {
+            background: #dbeafe;
+            font-weight: 600;
+        }
+
+        .custom-select .dropdown-empty {
+            padding: 12px 14px;
+            color: #94a3b8;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .custom-select .arrow {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 12px;
+            pointer-events: none;
+            transition: transform 0.2s;
+        }
+
+        .custom-select .arrow.open {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .custom-select .clear-btn {
+            position: absolute;
+            right: 32px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 16px;
+            display: none;
+            padding: 0 4px;
+            z-index: 5;
+        }
+
+        .custom-select .clear-btn:hover {
+            color: #ef4444;
+        }
+
+        .custom-select .clear-btn.visible {
+            display: block;
+        }
+
+        .custom-select.disabled input {
+            background: #f1f5f9;
+            cursor: not-allowed;
+            color: #94a3b8;
+        }
+
+        .custom-select.disabled .arrow {
+            opacity: 0.4;
         }
 
         @media (max-width: 768px) {
@@ -335,9 +483,9 @@
                 padding: 10px 12px;
             }
 
-            .notes {
-                flex-direction: column;
-                gap: 8px;
+            .btn-search {
+                width: 100%;
+                text-align: center;
             }
         }
 
@@ -361,11 +509,6 @@
                 padding: 8px 10px;
             }
 
-            .btn-search {
-                width: 100%;
-                text-align: center;
-            }
-
             .logo .company {
                 font-size: 14px;
             }
@@ -385,7 +528,7 @@
                 </div>
             </div>
             <div class="header-title">📋 <span>Прайс-лист</span></div>
-            <span class="version-badge">v1.0</span>
+            <span class="version-badge">v2.0</span>
         </div>
         <p class="subtitle">Актуальные цены на грузоперевозки по России</p>
 
@@ -393,15 +536,21 @@
         <div class="filters">
             <div class="filter-group">
                 <label>📍 Откуда</label>
-                <select id="fromCity">
-                    <option value="">Все города</option>
-                </select>
+                <div class="custom-select" id="fromSelect">
+                    <input type="text" id="fromInput" placeholder="Введите город или выберите из списка" autocomplete="off" />
+                    <span class="arrow">▼</span>
+                    <button class="clear-btn" id="fromClear">✕</button>
+                    <div class="dropdown" id="fromDropdown"></div>
+                </div>
             </div>
             <div class="filter-group">
                 <label>📍 Куда</label>
-                <select id="toCity">
-                    <option value="">Все города</option>
-                </select>
+                <div class="custom-select disabled" id="toSelect">
+                    <input type="text" id="toInput" placeholder="Сначала выберите 'Откуда'" autocomplete="off" disabled />
+                    <span class="arrow">▼</span>
+                    <button class="clear-btn" id="toClear">✕</button>
+                    <div class="dropdown" id="toDropdown"></div>
+                </div>
             </div>
             <div class="filter-group" style="display:flex; align-items:flex-end;">
                 <button class="btn-search" id="searchBtn">🔍 Показать цены</button>
@@ -436,17 +585,9 @@
             </table>
         </div>
 
-        <!-- ПРИМЕЧАНИЯ -->
-        <div class="notes">
-            <span class="note-item">
-                <span class="dot"></span> Тарифы указаны за 1 кг груза
-            </span>
-            <span class="note-item">
-                <span class="dot green"></span> Цены финальные, без дополнительных наценок
-            </span>
-            <span class="note-item" style="margin-left:auto; color:#94a3b8; font-size:12px;">
-                * Цены указаны без НДС
-            </span>
+        <!-- ФУТЕР -->
+        <div class="footer-note">
+            * Цены указаны с НДС
         </div>
     </div>
 
@@ -1493,32 +1634,304 @@
 
 
         // ============================================================
-        // ИНТЕРФЕЙС
+        // ИНТЕРФЕЙС — УМНЫЙ ПОИСК ПО 3 БУКВАМ
         // ============================================================
 
-        const fromSelect = document.getElementById('fromCity');
-        const toSelect = document.getElementById('toCity');
+        const fromInput = document.getElementById('fromInput');
+        const toInput = document.getElementById('toInput');
+        const fromDropdown = document.getElementById('fromDropdown');
+        const toDropdown = document.getElementById('toDropdown');
+        const fromClear = document.getElementById('fromClear');
+        const toClear = document.getElementById('toClear');
+        const fromSelect = document.getElementById('fromSelect');
+        const toSelect = document.getElementById('toSelect');
         const searchBtn = document.getElementById('searchBtn');
         const resultsBody = document.getElementById('resultsBody');
         const resultsCount = document.getElementById('resultsCount');
 
-        // Заполняем города
-        const cities = [...new Set(priceData.map(item => item.from))].sort();
-        const citiesTo = [...new Set(priceData.map(item => item.to))].sort();
+        // Все уникальные города
+        const allCities = [...new Set(priceData.map(item => item.from))].sort();
+        const allToCities = [...new Set(priceData.map(item => item.to))].sort();
 
-        cities.forEach(city => {
-            const opt = document.createElement('option');
-            opt.value = city;
-            opt.textContent = city;
-            fromSelect.appendChild(opt);
+        // Текущие выбранные значения
+        let selectedFrom = '';
+        let selectedTo = '';
+        let availableToCities = [];
+
+        // ===== Функция поиска по первым 3 буквам =====
+        function filterCities(list, query) {
+            if (!query) return list;
+            const normalized = query.toLowerCase().trim();
+            if (normalized.length < 1) return list;
+            // Ищем по началу слова (первые буквы)
+            return list.filter(city => city.toLowerCase().startsWith(normalized));
+        }
+
+        // ===== Рендер выпадающего списка =====
+        function renderDropdown(input, dropdown, items, onSelect) {
+            const query = input.value.trim();
+            const filtered = filterCities(items, query);
+
+            if (filtered.length === 0) {
+                dropdown.innerHTML = `<div class="dropdown-empty">Ничего не найдено</div>`;
+                dropdown.classList.add('open');
+                return;
+            }
+
+            dropdown.innerHTML = filtered.map(city => `
+                <div class="dropdown-item" data-value="${city}">${city}</div>
+            `).join('');
+
+            // Подсвечиваем первый элемент
+            const firstItem = dropdown.querySelector('.dropdown-item');
+            if (firstItem) firstItem.classList.add('highlight');
+
+            // Клик по элементу
+            dropdown.querySelectorAll('.dropdown-item').forEach(el => {
+                el.addEventListener('click', function() {
+                    const value = this.dataset.value;
+                    input.value = value;
+                    dropdown.classList.remove('open');
+                    onSelect(value);
+                });
+            });
+
+            dropdown.classList.add('open');
+        }
+
+        // ===== Закрытие выпадающего списка =====
+        function closeDropdown(dropdown) {
+            dropdown.classList.remove('open');
+        }
+
+        // ===== Обновление списка "Куда" =====
+        function updateToCities(from) {
+            if (!from) {
+                availableToCities = [];
+                toInput.disabled = true;
+                toInput.placeholder = 'Сначала выберите "Откуда"';
+                toSelect.classList.add('disabled');
+                selectedTo = '';
+                toInput.value = '';
+                toClear.classList.remove('visible');
+                closeDropdown(toDropdown);
+                return;
+            }
+
+            // Собираем города назначения из маршрутов
+            const destinations = [...new Set(
+                priceData.filter(item => item.from === from).map(item => item.to)
+            )].sort();
+
+            availableToCities = destinations;
+            toInput.disabled = false;
+            toInput.placeholder = 'Введите город или выберите из списка';
+            toSelect.classList.remove('disabled');
+
+            // Если текущий выбранный город не в списке — сбрасываем
+            if (selectedTo && !availableToCities.includes(selectedTo)) {
+                selectedTo = '';
+                toInput.value = '';
+                toClear.classList.remove('visible');
+            }
+
+            // Если остался только один город — подставляем его
+            if (availableToCities.length === 1) {
+                const onlyCity = availableToCities[0];
+                toInput.value = onlyCity;
+                selectedTo = onlyCity;
+                toClear.classList.add('visible');
+                closeDropdown(toDropdown);
+            }
+
+            // Если нет городов
+            if (availableToCities.length === 0) {
+                toInput.placeholder = 'Нет доступных направлений';
+                toInput.disabled = true;
+                toSelect.classList.add('disabled');
+            }
+        }
+
+        // ===== Обработчик ввода "Откуда" =====
+        fromInput.addEventListener('input', function() {
+            const val = this.value.trim();
+            const items = val.length >= 1 ? allCities : allCities;
+            renderDropdown(this, fromDropdown, items, (value) => {
+                selectedFrom = value;
+                fromClear.classList.add('visible');
+                updateToCities(value);
+                // Автоматически ищем при выборе
+                if (selectedFrom && selectedTo) {
+                    searchBtn.click();
+                }
+            });
         });
 
-        citiesTo.forEach(city => {
-            const opt = document.createElement('option');
-            opt.value = city;
-            opt.textContent = city;
-            toSelect.appendChild(opt);
+        // ===== Обработчик ввода "Куда" =====
+        toInput.addEventListener('input', function() {
+            if (!selectedFrom) {
+                this.value = '';
+                this.placeholder = 'Сначала выберите "Откуда"';
+                return;
+            }
+
+            const val = this.value.trim();
+            const items = val.length >= 1 ? availableToCities : availableToCities;
+            renderDropdown(this, toDropdown, items, (value) => {
+                selectedTo = value;
+                toClear.classList.add('visible');
+                if (selectedFrom && selectedTo) {
+                    searchBtn.click();
+                }
+            });
         });
+
+        // ===== Обработчик фокуса =====
+        fromInput.addEventListener('focus', function() {
+            if (!this.value.trim()) {
+                renderDropdown(this, fromDropdown, allCities, (value) => {
+                    selectedFrom = value;
+                    fromClear.classList.add('visible');
+                    updateToCities(value);
+                    if (selectedFrom && selectedTo) {
+                        searchBtn.click();
+                    }
+                });
+            }
+        });
+
+        toInput.addEventListener('focus', function() {
+            if (!selectedFrom) {
+                this.placeholder = 'Сначала выберите "Откуда"';
+                return;
+            }
+            if (availableToCities.length === 0) {
+                this.placeholder = 'Нет доступных направлений';
+                return;
+            }
+            if (!this.value.trim()) {
+                renderDropdown(this, toDropdown, availableToCities, (value) => {
+                    selectedTo = value;
+                    toClear.classList.add('visible');
+                    if (selectedFrom && selectedTo) {
+                        searchBtn.click();
+                    }
+                });
+            }
+        });
+
+        // ===== Закрытие при клике вне =====
+        document.addEventListener('click', function(e) {
+            if (!fromSelect.contains(e.target)) {
+                closeDropdown(fromDropdown);
+            }
+            if (!toSelect.contains(e.target)) {
+                closeDropdown(toDropdown);
+            }
+        });
+
+        // ===== Очистка =====
+        fromClear.addEventListener('click', function() {
+            fromInput.value = '';
+            selectedFrom = '';
+            this.classList.remove('visible');
+            updateToCities('');
+            closeDropdown(fromDropdown);
+            resultsBody.innerHTML = `
+                <tr>
+                    <td colspan="5" class="no-results">
+                        <span class="emoji">🔍</span>
+                        Выберите направление и нажмите "Показать цены"
+                    </td>
+                </tr>
+            `;
+            resultsCount.textContent = 'Найдено: 0';
+        });
+
+        toClear.addEventListener('click', function() {
+            toInput.value = '';
+            selectedTo = '';
+            this.classList.remove('visible');
+            closeDropdown(toDropdown);
+            resultsBody.innerHTML = `
+                <tr>
+                    <td colspan="5" class="no-results">
+                        <span class="emoji">🔍</span>
+                        Выберите направление и нажмите "Показать цены"
+                    </td>
+                </tr>
+            `;
+            resultsCount.textContent = 'Найдено: 0';
+        });
+
+        // ===== Клавиатура: Enter для выбора первого элемента =====
+        fromInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const firstItem = fromDropdown.querySelector('.dropdown-item.highlight');
+                if (firstItem) {
+                    firstItem.click();
+                } else if (fromDropdown.classList.contains('open')) {
+                    const first = fromDropdown.querySelector('.dropdown-item');
+                    if (first) first.click();
+                }
+                e.preventDefault();
+            }
+            if (e.key === 'Escape') {
+                closeDropdown(fromDropdown);
+            }
+        });
+
+        toInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const firstItem = toDropdown.querySelector('.dropdown-item.highlight');
+                if (firstItem) {
+                    firstItem.click();
+                } else if (toDropdown.classList.contains('open')) {
+                    const first = toDropdown.querySelector('.dropdown-item');
+                    if (first) first.click();
+                }
+                e.preventDefault();
+            }
+            if (e.key === 'Escape') {
+                closeDropdown(toDropdown);
+            }
+        });
+
+        // ===== Навигация по клавиатуре (стрелки) =====
+        function setupKeyboardNav(input, dropdown) {
+            input.addEventListener('keydown', function(e) {
+                if (!dropdown.classList.contains('open')) return;
+                const items = dropdown.querySelectorAll('.dropdown-item');
+                if (items.length === 0) return;
+
+                let currentIndex = -1;
+                items.forEach((el, i) => {
+                    if (el.classList.contains('highlight')) currentIndex = i;
+                });
+
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    const newIndex = Math.min(currentIndex + 1, items.length - 1);
+                    items.forEach(el => el.classList.remove('highlight'));
+                    items[newIndex].classList.add('highlight');
+                    items[newIndex].scrollIntoView({ block: 'nearest' });
+                }
+                if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    const newIndex = Math.max(currentIndex - 1, 0);
+                    items.forEach(el => el.classList.remove('highlight'));
+                    items[newIndex].classList.add('highlight');
+                    items[newIndex].scrollIntoView({ block: 'nearest' });
+                }
+            });
+        }
+
+        setupKeyboardNav(fromInput, fromDropdown);
+        setupKeyboardNav(toInput, toDropdown);
+
+        // ============================================================
+        // ОСНОВНАЯ ЛОГИКА ТАБЛИЦЫ
+        // ============================================================
 
         function formatPrice(price) {
             return price.toFixed(2).replace('.', ',');
@@ -1530,7 +1943,7 @@
             if (from) filtered = filtered.filter(item => item.from === from);
             if (to) filtered = filtered.filter(item => item.to === to);
 
-            // Убираем дубли (оставляем первое вхождение)
+            // Убираем дубли
             const seen = new Set();
             filtered = filtered.filter(item => {
                 const key = item.from + '|' + item.to + '|' + item.price;
@@ -1539,7 +1952,6 @@
                 return true;
             });
 
-            // Сортируем по направлению
             filtered.sort((a, b) => {
                 if (a.from !== b.from) return a.from.localeCompare(b.from);
                 return a.to.localeCompare(b.to);
@@ -1572,21 +1984,48 @@
             }).join('');
         }
 
+        // ===== Поиск =====
         searchBtn.addEventListener('click', () => {
-            const from = fromSelect.value;
-            const to = toSelect.value;
-            renderTable(from, to);
+            if (!selectedFrom || !selectedTo) {
+                resultsBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="no-results">
+                            <span class="emoji">⚠️</span>
+                            Выберите и "Откуда", и "Куда"
+                        </td>
+                    </tr>
+                `;
+                resultsCount.textContent = 'Найдено: 0';
+                return;
+            }
+            renderTable(selectedFrom, selectedTo);
         });
 
-        // Автоматический поиск при изменении фильтров
-        fromSelect.addEventListener('change', searchBtn.click);
-        toSelect.addEventListener('change', searchBtn.click);
+        // ===== Автоматический поиск при выборе города =====
+        // (уже реализовано в обработчиках выбора)
 
-        // Показываем все при загрузке
-        renderTable('', '');
+        // ============================================================
+        // ИНИЦИАЛИЗАЦИЯ
+        // ============================================================
 
-        console.log('📋 Клиентский прайс-лист загружен!');
+        // Показываем все города в "Откуда" при фокусе
+        // Обновляем "Куда" при выборе "Откуда"
+        // Загружаем пустую таблицу
+
+        resultsBody.innerHTML = `
+            <tr>
+                <td colspan="5" class="no-results">
+                    <span class="emoji">🔍</span>
+                    Выберите направление и нажмите "Показать цены"
+                </td>
+            </tr>
+        `;
+        resultsCount.textContent = 'Найдено: 0';
+
+        console.log('📋 Клиентский прайс-лист v2.0 загружен!');
         console.log(`📊 Загружено ${priceData.length} позиций`);
+        console.log('🏙️ Доступно городов для отправления:', allCities.length);
+        console.log('🔍 Поиск работает по первым 3 буквам с автоподстановкой');
     </script>
 </body>
 </html>
